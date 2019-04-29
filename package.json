@@ -1,4 +1,9 @@
 {
   "name": "md-links",
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "description": "Analiza links dentro de archivos Markdown",
+  "main": "index.js",
+  "dependencies": {
+    "commander": "^2.20.0"
+  }
 }
