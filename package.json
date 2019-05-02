@@ -1,9 +1,28 @@
 {
-  "name": "md-links",
-  "version": "0.1.0",
+  "name": "md-links-lg",
+  "version": "0.1.1",
   "description": "Analiza links dentro de archivos Markdown",
   "main": "index.js",
   "dependencies": {
-    "commander": "^2.20.0"
-  }
+    "commander": "^2.20.0",
+    "jest": "^24.7.1"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest --coverage --colors"
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LizGarciaC/GDL002-md-links.git"
+  },
+  "author": "Lizeth Garcia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LizGarciaC/GDL002-md-links/issues"
+  },
+  "homepage": "https://github.com/LizGarciaC/GDL002-md-links#readme"
 }
