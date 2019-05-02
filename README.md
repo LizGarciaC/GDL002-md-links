@@ -6,13 +6,17 @@ Módulo instalable vía:
 
 * npm install md-links-lg
 
+## Página NPM
+
+https://www.npmjs.com/~lizgarciac 
+
 ## Diagrama de flujo
 
 ![Diagrama-Flujo](/diagramaflujo.gif)
 
-## Board para la implementación de la librería
+## Tablero para la implementación de la librería
 
-![Diagrama-Flujo](/board.jpg)
+![Board](/board.JPG)
 
 ## Preámbulo
 
