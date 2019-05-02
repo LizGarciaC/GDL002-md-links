@@ -93,7 +93,7 @@ readFileResult.then(
 
     for (let i = 0; i < htmlLinks.length; i++) {
 
-      request(htmlLinks[i].href, (error, response, body) => {
+      request(htmlLinks[i].href, (error, response, body ) => {
         if (error){
           console.log(htmlLinks[i].href + '  No se encontró la página');
           htmlLinks[i].pathExist=false;
@@ -104,7 +104,7 @@ readFileResult.then(
         // const contentType = res.headers['content-type'];
 
         if (statusCode === 200){
-          console.log(htmlLinks[i].href + '  Página válida');
+          console.log(htmlLinks[i].href + '  Página válida ');
           htmlLinks[i].pathExist=true;
         }
         else{
