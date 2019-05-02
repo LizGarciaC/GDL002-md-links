@@ -1,4 +1,5 @@
 const mdLinks = require('../index.js');
+
 describe('pathInserted', () => {
   it('should be a function', () => {
     expect(typeof mdLinks.pathInserted).toBe("function");

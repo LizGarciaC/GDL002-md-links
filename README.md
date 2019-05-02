@@ -1,5 +1,19 @@
 # Markdown Links
 
+## Instalación de la librería
+
+Módulo instalable vía: 
+
+* npm install md-links-lg
+
+## Diagrama de flujo
+
+![Diagrama-Flujo](/diagramaflujo.gif)
+
+## Board para la implementación de la librería
+
+![Diagrama-Flujo](/board.jpg)
+
 ## Preámbulo
 
 [Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
