@@ -159,12 +159,12 @@ if (require.main === module){
 //Función para leer archivo
 
 module.exports = {
-  // "pathInserted": pathInserted,
-  // "pathWorking": pathWorking,
-  // "pathDirectory": pathDirectory,
-  // "pathMd": pathMd,
-  // "urlExtract": urlExtract,
-  "mdLinksLg": links
+   pathInserted,
+   pathWorking,
+   pathDirectory,
+   pathMd,
+   urlExtract,
+   links
 };
 
 
