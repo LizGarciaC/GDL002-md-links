@@ -5,7 +5,6 @@ const pathFile = process.argv[2];
 const request = require("request");
 const program = require("commander");
 
-
 //funcion que verifica si el campo esta vacio ó lleno
 function pathInserted(pathFile) {
   if (pathFile == undefined) {
@@ -88,7 +87,7 @@ const links = (pathFile, options) => {
           if (error) {
             htmlLinks[i].message = 'No se encontró la página';
             htmlLinks[i].pathExist = false;
-            if (options.validate){
+            if (options.validate) {
               console.log("     " + htmlLinks[i].href.white + " " + htmlLinks[i].message.red);
             } else {
               console.log("     " + htmlLinks[i].href.white);
@@ -102,7 +101,7 @@ const links = (pathFile, options) => {
             if (statusCode === 200) {
               htmlLinks[i].message = 'Página válida ';
               htmlLinks[i].pathExist = true;
-              if (options.validate){
+              if (options.validate) {
                 console.log("     " + htmlLinks[i].href.white + " " + htmlLinks[i].message.green);
               } else {
                 console.log("     " + htmlLinks[i].href.white);
@@ -120,51 +119,42 @@ const links = (pathFile, options) => {
   });
 };
 
-// links(pathFile, null).then(
-//   (htmlLinks) => { // On Success
-
-//   },
-//   (err) => { // On Error
-//     console.error(err);
-//   }
-// );
-
-var fnMain = ()=>{
-program
-  .version('1.0.0')
-  .option('-v, --validate', 'Valida si el link funciona o no')
-  .option('-s, --stats', 'Muestra información estadística sobre los links')
-  //Se le enseña a la libreria command que está esperando un path o ruta
-  .arguments('<path>')
-  // Si encuentra el path entonces ejecuta la acción que se le solicita
-  .action((path) => {
-    links(path, { "validate": program.validate, "stats": program.stats });
-    // .then((result) => {
-    //   console.log("Links encontrados: ".white + result.length);
-    //   for (var link = 0; link < result.length; link++) {
-    //     console.log("     " + result[link].href.white + "  " + result[link].message.green);
-    //   }
-    // });
-  })
-  .parse(process.argv);
+var fnMain = () => {
+  program
+    .version('1.0.0')
+    .option('-v, --validate', 'Valida si el link funciona o no')
+    .option('-s, --stats', 'Muestra información estadística sobre los links')
+    //Se le enseña a la libreria command que está esperando un path o ruta
+    .arguments('<path>')
+    // Si encuentra el path entonces ejecuta la acción que se le solicita
+    .action((path) => {
+      links(path, { "validate": program.validate, "stats": program.stats });
+      // .then((result) => {
+      //   console.log("Links encontrados: ".white + result.length);
+      //   for (var link = 0; link < result.length; link++) {
+      //     console.log("     " + result[link].href.white + "  " + result[link].message.green);
+      //   }
+      // });
+    })
+    .parse(process.argv);
 
   if (!process.argv.slice(2).length) {
     program.outputHelp();
   }
 };
 
-if (require.main === module){
+if (require.main === module) {
   fnMain();
 }
 //Función para leer archivo
 
 module.exports = {
-   pathInserted,
-   pathWorking,
-   pathDirectory,
-   pathMd,
-   urlExtract,
-   links
+  pathInserted,
+  pathWorking,
+  pathDirectory,
+  pathMd,
+  urlExtract,
+  links
 };
 
 
