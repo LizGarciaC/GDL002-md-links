@@ -6,7 +6,14 @@ Módulo instalable vía:
 
 * npm install md-links-lg
 
-## Página NPM
+## Modo de uso:
+En tu proyecto de node.js, escribe este ejemplo de código:
+
+  * const mdLinks = require ("md-links-lg");
+  * mdLinks.mdLinksLg("test.md", {validate:true});
+
+
+## Página NPM de la librería
 
 https://www.npmjs.com/~lizgarciac 
 
@@ -14,7 +21,7 @@ https://www.npmjs.com/~lizgarciac
 
 ![Diagrama-Flujo](/diagramaflujo.gif)
 
-## Tablero para la implementación de la librería
+## Tablero del desarrollo de  la librería.
 
 ![Board](/board.JPG)
 

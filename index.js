@@ -1,7 +1,9 @@
 const fs = require("fs");
 const path = require("path");
+const colors = require("colors");
 const pathFile = process.argv[2];
 const request = require("request");
+const program = require("commander");
 
 
 //funcion que verifica si el campo esta vacio ó lleno
@@ -47,7 +49,7 @@ function pathMd(pathFile) {
 };
 
 //Función para extraer los links
-function urlify(data) {
+function urlExtract(data) {
   const mdLinkRgEx = /\[(.+?)\]\((.+?\))/g;
   const mdLinkRgEx2 = /\[(.+?)\]\((.+?)\)/;
   let allLinks = data.match(mdLinkRgEx);
@@ -57,12 +59,13 @@ function urlify(data) {
     let grupoData = {
       href: grpdDta[2],
       text: grpdDta[1],
-      file: pathFile
+      file: pathFile,
+      message: ''
     };
     htmlLinks.push(grupoData);
   }
-  console.log(htmlLinks.length);
-  console.log(htmlLinks);
+  // console.log(htmlLinks.length);
+  // console.log(htmlLinks);
   return (htmlLinks);
 
 };
@@ -74,65 +77,94 @@ const links = (pathFile, options) => {
       if (err) {
         return reject(err);
       }
-      resolve(data.toString());
+
+      let htmlLinks = urlExtract(data.toString());
+      let mainMessage = "Links encontrados: " + htmlLinks.length
+      console.log(mainMessage.yellow);
+      // Válidar Links encontrados.
+      for (let i = 0; i < htmlLinks.length; i++) {
+
+        request(htmlLinks[i].href, (error, response, body) => {
+          if (error) {
+            htmlLinks[i].message = 'No se encontró la página';
+            htmlLinks[i].pathExist = false;
+            if (options.validate){
+              console.log("     " + htmlLinks[i].href.white + " " + htmlLinks[i].message.red);
+            } else {
+              console.log("     " + htmlLinks[i].href.white);
+            }
+          }
+          else {
+
+            const statusCode = response.statusCode;
+            // const contentType = res.headers['content-type'];
+
+            if (statusCode === 200) {
+              htmlLinks[i].message = 'Página válida ';
+              htmlLinks[i].pathExist = true;
+              if (options.validate){
+                console.log("     " + htmlLinks[i].href.white + " " + htmlLinks[i].message.green);
+              } else {
+                console.log("     " + htmlLinks[i].href.white);
+              }
+            }
+            else {
+              htmlLinks[i].message = 'página inválida';
+            }
+          }
+        });
+      }
+
+      resolve(htmlLinks);
     });
   });
 };
 
-const readFileResult = links(pathFile, null);
+// links(pathFile, null).then(
+//   (htmlLinks) => { // On Success
 
-//Función para leer archivo
-readFileResult.then(
-  (data) => { // On Success
-    console.log("Links Encontrados:");
-    let htmlLinks = urlify(data);
+//   },
+//   (err) => { // On Error
+//     console.error(err);
+//   }
+// );
 
-// Válidar Links encontrados.
+var fnMain = ()=>{
+program
+  .version('1.0.0')
+  .option('-v, --validate', 'Valida si el link funciona o no')
+  .option('-s, --stats', 'Muestra información estadística sobre los links')
+  //Se le enseña a la libreria command que está esperando un path o ruta
+  .arguments('<path>')
+  // Si encuentra el path entonces ejecuta la acción que se le solicita
+  .action((path) => {
+    links(path, { "validate": program.validate, "stats": program.stats });
+    // .then((result) => {
+    //   console.log("Links encontrados: ".white + result.length);
+    //   for (var link = 0; link < result.length; link++) {
+    //     console.log("     " + result[link].href.white + "  " + result[link].message.green);
+    //   }
+    // });
+  })
+  .parse(process.argv);
 
-
-
-    for (let i = 0; i < htmlLinks.length; i++) {
-
-      request(htmlLinks[i].href, (error, response, body ) => {
-        if (error){
-          console.log(htmlLinks[i].href + '  No se encontró la página');
-          htmlLinks[i].pathExist=false;
-        }
-        else{
-          
-        const statusCode = response.statusCode;
-        // const contentType = res.headers['content-type'];
-
-        if (statusCode === 200){
-          console.log(htmlLinks[i].href + '  Página válida ');
-          htmlLinks[i].pathExist=true;
-        }
-        else{
-          console.log('página inválida');
-        }
-      }
-        
-      });
-    }
-
-
-
-  },
-  (err) => { // On Error
-    console.error(err);
+  if (!process.argv.slice(2).length) {
+    program.outputHelp();
   }
-);
+};
 
+if (require.main === module){
+  fnMain();
+}
+//Función para leer archivo
 
 module.exports = {
-  "pathInserted": pathInserted,
-  "pathWorking": pathWorking,
-  "pathDirectory": pathDirectory,
-  "pathMd": pathMd,
-  "urlify": urlify,
-  "readFileResult": readFileResult,
-  "links": links
-
+  // "pathInserted": pathInserted,
+  // "pathWorking": pathWorking,
+  // "pathDirectory": pathDirectory,
+  // "pathMd": pathMd,
+  // "urlExtract": urlExtract,
+  "mdLinksLg": links
 };
 
 

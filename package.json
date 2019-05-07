@@ -1,9 +1,10 @@
 {
   "name": "md-links-lg",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "description": "Analiza links dentro de archivos Markdown",
   "main": "index.js",
   "dependencies": {
+    "colors": "^1.3.3",
     "commander": "^2.20.0",
     "jest": "^24.7.1"
   },
@@ -13,7 +14,6 @@
   "devDependencies": {},
   "scripts": {
     "test": "jest --coverage --colors"
-    
   },
   "repository": {
     "type": "git",

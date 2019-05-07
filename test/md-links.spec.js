@@ -46,9 +46,9 @@ describe("readingFile", () => {
   });
 });
 
-// describe("urlify", () =>{
+// describe("urlExtract", () =>{
 //   it("Should be true", ()=> {
-//     expect(mdLinks.urlify("./README.md")).toBe(htmlLinks);
+//     expect(mdLinks.urlExtract("./README.md")).toBe(htmlLinks);
 //   });
 // });
 
